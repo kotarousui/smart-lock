@@ -1,0 +1,14 @@
+certifi==2019.9.11
+chardet==3.0.4
+idna==2.8
+libusb1==1.7.1
+ndeflib==0.3.3
+nfcpy==1.0.3
+pyDes==2.0.1
+pyserial==3.4
+requests==2.22.0
+six==1.13.0
+slackbot==0.5.5
+slacker==0.13.0
+urllib3==1.25.7
+websocket-client==0.44.0
