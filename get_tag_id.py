@@ -30,8 +30,11 @@ def main():
     # NFC接続リクエストのための準備
     # 212F(FeliCa)で設定
     target_req_suica = nfc.clf.RemoteTarget("212F")
+    target_req_nanaco = nfc.clf.RemoteTarget("212F")
     # 0003(Suica)
     target_req_suica.sensf_req = bytearray.fromhex("0000030000")
+    # 04c7(nanaco)
+    target_req_nanaco.sensf_req = bytearray.fromhex("0004c70000")
 
     print('Reader waiting...')
     while True:
@@ -39,7 +42,7 @@ def main():
 
         # Suica待ち受け開始
         # clf.sense( [リモートターゲット], [検索回数], [検索の間隔] )
-        target = clf.sense(target_req_suica, iterations=int(TIME_CYCLE//TIME_INTERVAL)+1 , interval=TIME_INTERVAL)
+        target = clf.sense(target_req_suica, target_req_nanaco, iterations=int(TIME_CYCLE//TIME_INTERVAL)+1 , interval=TIME_INTERVAL)
 
         if target:
             tag = nfc.tag.activate(clf, target)
@@ -51,10 +54,10 @@ def main():
             print('Suica detected. idm = {}'.format(idm))
 
             if idm in users_suica_id:
-                print('OK! KOTARO')
-                push_slack(True, 'KOTARO')
+                print('OK! K')
+                push_slack(True, 'K')
             else:
-                print('KOTAROさん以外のSuicaです')
+                print('Kさん以外のSuicaです')
                 push_slack(False)
 
             print('Sleep {} seconds'.format(TIME_WAIT))
