@@ -1,1 +1,1 @@
-# smartlock
+# smart-lock
